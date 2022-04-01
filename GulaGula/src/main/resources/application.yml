@@ -13,14 +13,18 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect      
   thymeleaf:
     cache: false 
-server:
-  error:
-    whitelabel:
-      enabled: false
+  server:
+    error:
+        whitelabel:
+        enabled: false
   servlet:
     session:
       cookie:
         http-only: true
       tracking-modes:
       - cookie
+  security:
+        user:
+            name: "admin@mail.com"
+            password: "1234"    
 
