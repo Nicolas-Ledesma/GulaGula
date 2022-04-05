@@ -1,22 +1,25 @@
 package com.gulagula.gulagula.entidades;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Lob;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Plato {
+public class Imagen {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String nombre;
 
-    @OneToOne
-    private Receta receta;
-    private Imagen imagen;
+    private String nombre;
+    private String mime;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] contenido;
 
 }
