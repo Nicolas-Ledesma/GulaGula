@@ -31,6 +31,7 @@ public class Plato {
 
     @OneToOne
     private Receta receta;
+    @OneToOne
     private Imagen imagen;
 
     public String getId() {
