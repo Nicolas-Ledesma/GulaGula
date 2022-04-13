@@ -4,6 +4,7 @@ import com.gulagula.gulagula.enumeradores.Categoria;
 import com.gulagula.gulagula.enumeradores.Sabor;
 import com.gulagula.gulagula.enumeradores.Temperatura;
 import com.gulagula.gulagula.enumeradores.Tipo;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,8 @@ public class Receta {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private List<String> instrucciones;
+
+    private ArrayList<String> instrucciones;
 
     @OneToMany
     private List<Ingrediente> ingredientes;
@@ -32,8 +34,7 @@ public class Receta {
     public Receta() {
     }
 
-
-    public Receta(String id, List<String> instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion) {
+    public Receta(String id, ArrayList<String> instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion) {
         this.id = id;
         this.instrucciones = instrucciones;
         this.ingredientes = ingredientes;
@@ -57,7 +58,7 @@ public class Receta {
         return instrucciones;
     }
 
-    public void setInstrucciones(List<String> instrucciones) {
+    public void setInstrucciones(ArrayList<String> instrucciones) {
         this.instrucciones = instrucciones;
     }
 
@@ -122,5 +123,4 @@ public class Receta {
         return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + '}';
     }
 
-    
 }

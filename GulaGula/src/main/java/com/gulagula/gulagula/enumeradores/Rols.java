@@ -2,6 +2,6 @@
 package com.gulagula.gulagula.enumeradores;
 
 
-public enum Role {
+public enum Rols {
     ADMIN, USER
 }
