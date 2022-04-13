@@ -1,6 +1,6 @@
 package com.gulagula.gulagula.entidades;
 
-import com.gulagula.gulagula.enumeradores.Role;
+import com.gulagula.gulagula.enumeradores.Rols;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +17,6 @@ public class Usuario {
     private String clave;
     private String email;
     private Boolean alta;
-    private Role role;
+    private Rols role;
 
 }
