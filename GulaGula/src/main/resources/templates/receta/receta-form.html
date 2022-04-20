@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <title>Nuevo autor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <nav class=" navbar-dark bg-dark">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/plato}">Plato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/receta}">Receta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/usuario}">Usuario</a>
+                </li>
+            </ul>
+        </nav>
+        <h1>Crear nueva receta</h1>
+        <div>
+            <form th:action="@{/receta/form}" method='POST' th:object="${receta}"  class="form-register">            
+                <input type="hidden" th:value="${receta.id}"/>
+                <label> Nombre:
+                    <input type="text" th:field="*{nombre}" />
+                </label> </br>
+                <label> Tiempo de Coccion:
+                    <input type="text" th:field="*{tiempoDeCoccion}" />
+                </label>  </br>
+                <label> Categoria:
+                    <select name="categoria">
+                        <option th:each="categoria : ${T(com.gulagula.gulagula.enumeradores.Categoria).values()}" 
+                                th:value="${categoria}" th:text="${categoria.displayValue}"></option>
+                    </select>
+                </label>  </br>
+                <label> Sabor:
+                    <select name="sabor" th:field="*{sabor}">
+                        <option th:each="sabor : ${T(com.gulagula.gulagula.enumeradores.Sabor).values()}" 
+                                th:value="${sabor}" th:text="${sabor.displayValue}"></option>
+                    </select>
+                </label>  </br>
+                <label> Tipo:
+                    <select name="tipo" th:field="*{tipo}">
+                        <option th:each="tipo : ${T(com.gulagula.gulagula.enumeradores.Tipo).values()}" 
+                                th:value="${tipo}" th:text="${tipo.displayValue}"></option>
+                    </select>
+                </label>  </br>
+                <label> Temperatura:
+                    <select th:field="*{temp}">
+                        <option th:each="temperatura : ${T(com.gulagula.gulagula.enumeradores.Temperatura).values()}" 
+                                th:value="${temperatura}" th:text="${temperatura.displayValue}" ></option>
+                    </select>
+                </label>  </br>
+                <label> Instrucciones:
+                    </br>
+                    <textarea rows="8" cols="20" type="text" th:field="*{instrucciones}" />
+                </label>  </br>
+                </label><br>
+                <label class="form-label">Ingredientes
+                    <select multiple class="form-select" th:field="*{ingredientes}" name="ingredientesId">
+                        <option th:each="ingrediente: ${ingredientes}" th:text="${ingrediente.nombre}"
+                                th:field="*{ingredientes}"
+                                th:value="${{ingrediente}}"
+                                th:selected="${receta.ingredientes !=null ? ingredientes.id == receta.ingredientes.id : false}">
+                        </option>
+                    </select>
+                </label><br>
+
+                </label><br>
+                <p th:if="${Error != null}" th:text="${Error}" style="color:red"></p>
+                <input type="submit" value='Guardar' class="btn btn-warning">
+                <a href="/receta" class="btn btn-primary my-2">Volver</a>
+            </form>
+            <!--            <p sclass="text-danger" th:text="${error != null ? error : ''}" ></p>-->
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    </body>
+</html>
