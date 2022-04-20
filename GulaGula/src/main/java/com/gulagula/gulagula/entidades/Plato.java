@@ -31,16 +31,6 @@ public class Plato {
         this.imagen = imagen;
     }
 
-
-    //public Estado getEstado() {
-        //return estado;
-    //}
-
-//    public void setEstado(Estado estado) {
-//        this.estado = estado;
-//    }
-
-
     public String getId() {
         return id;
     }
@@ -73,12 +63,9 @@ public class Plato {
         this.imagen = imagen;
     }
 
-      
     @Override
     public String toString() {
-        return "Plato{" + "id=" + id + ", nombre=" + nombre +  ", receta=" + receta + ", imagen=" + imagen + '}';
+        return "Plato{" + "id=" + id + ", nombre=" + nombre + ", receta=" + receta + ", imagen=" + imagen + '}';
     }
-
-
 
 }
