@@ -31,21 +31,12 @@ public class Plato {
         this.imagen = imagen;
     }
 
-<<<<<<< HEAD
     //public Estado getEstado() {
-        //return estado;
+    //return estado;
     //}
-
 //    public void setEstado(Estado estado) {
 //        this.estado = estado;
 //    }
-=======
-    @OneToOne
-    private Receta receta;
-    @OneToOne
-    private Imagen imagen;
->>>>>>> e6e991c86aafbe2012ae34ff4431bca3c07a69a5
-
     public String getId() {
         return id;
     }
@@ -78,12 +69,9 @@ public class Plato {
         this.imagen = imagen;
     }
 
-      
     @Override
     public String toString() {
-        return "Plato{" + "id=" + id + ", nombre=" + nombre +  ", receta=" + receta + ", imagen=" + imagen + '}';
+        return "Plato{" + "id=" + id + ", nombre=" + nombre + ", receta=" + receta + ", imagen=" + imagen + '}';
     }
-
-
 
 }
