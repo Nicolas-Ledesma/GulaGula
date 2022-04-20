@@ -5,10 +5,13 @@ import com.gulagula.gulagula.enumeradores.Sabor;
 import com.gulagula.gulagula.enumeradores.Temperatura;
 import com.gulagula.gulagula.enumeradores.Tipo;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -18,10 +21,20 @@ public class Receta {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private List<String> instrucciones;
 
-    @OneToMany
+    private String instrucciones;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "receta_ingrediente",
+            joinColumns = {@JoinColumn(name = "receta_id")},
+            inverseJoinColumns = {@JoinColumn(name = "ingrediente_id")}
+    )
     private List<Ingrediente> ingredientes;
+    
     private Temperatura temp;
     private Sabor sabor;
     private String nombre;
@@ -32,8 +45,7 @@ public class Receta {
     public Receta() {
     }
 
-
-    public Receta(String id, List<String> instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion) {
+    public Receta(String id, String instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion) {
         this.id = id;
         this.instrucciones = instrucciones;
         this.ingredientes = ingredientes;
@@ -53,11 +65,11 @@ public class Receta {
         this.id = id;
     }
 
-    public List<String> getInstrucciones() {
+    public String getInstrucciones() {
         return instrucciones;
     }
 
-    public void setInstrucciones(List<String> instrucciones) {
+    public void setInstrucciones(String instrucciones) {
         this.instrucciones = instrucciones;
     }
 
@@ -123,5 +135,4 @@ public class Receta {
         return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + '}';
     }
 
-    
 }

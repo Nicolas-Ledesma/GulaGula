@@ -3,6 +3,7 @@ package com.gulagula.gulagula.servicios;
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.entidades.Receta;
 import com.gulagula.gulagula.repositorios.RecetaRepositorio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -13,6 +14,12 @@ import org.springframework.stereotype.Service;
 public class RecetaServicio {
 
     private RecetaRepositorio recetaRepositorio;
+    private IngredienteServicio ingredienteServicio;
+
+    @Autowired
+    public RecetaServicio(IngredienteServicio ingredienteServicio) {
+        this.ingredienteServicio = ingredienteServicio;
+    }
 
     @Autowired
     public void RecetaRepositorio(RecetaRepositorio recetaRepositorio) {
@@ -21,7 +28,9 @@ public class RecetaServicio {
 
     @Transactional
     public Receta guardarReceta(Receta receta) throws Exception {
-        buscarReceta(receta.getId());
+//        if (recetaRepositorio.existsById(receta.getId())) {
+//            throw new Exception("la receta ya se encuentra cargada");
+//        }
         validacion(receta);
         recetaRepositorio.save(receta);
         return receta;
@@ -30,7 +39,7 @@ public class RecetaServicio {
     @Transactional
     public Receta editarReceta(Receta receta) throws Exception {
         validacion(receta);
-        recetaRepositorio.findById(receta.getId());
+        buscarReceta(receta.getId());
         recetaRepositorio.save(receta);
         return receta;
     }
@@ -40,20 +49,65 @@ public class RecetaServicio {
         return recetaRepositorio.findAll();
     }
 
-//    @Transactional
-//    public List<Receta> listarRecetasPorIngredientes(List<Ingrediente> ingredientes) {
-//        List<Receta> receta1 = recetaRepositorio.findAll();
-//        
-//        for (int i = 0; i < receta1.size(); i++) {
-//            if (receta1.get(i).getIngredientes().equals(ingredientes)) {
-//                
-//            }
-//        }
-//        
-//        
-//        
-//        return receta1;
-//    }
+    /**
+     * Este metodo recibe una lista de ingredientes, busca las recetas que
+     * contengan esos ingredientes y devuelve una lista de recetas.-     *
+     * @param ingredientes
+     * @return
+     */
+    @Transactional
+    public List<Receta> listarRecetasPorIngredientes(List<Ingrediente> ingredientes) {
+        List<Receta> recetaBd = recetaRepositorio.findAll();
+        int contadorRecetas = 0;
+        int contadorIngredientesEncontrados = 0;
+        List<Receta> recetasMas3 = new ArrayList<Receta>();
+        do {
+            for (int i = 0; i < recetaBd.size(); i++) { // Ingresa con cada una de las recetas de la base de datos
+                contadorRecetas++;
+                contadorIngredientesEncontrados = 0;
+                for (int j = 0; j < ingredientes.size(); j++) { // Ingresa a iterar cada una de los ingredietes ingresados en la pagina
+
+                    for (int k = 0; k < recetaBd.get(i).getIngredientes().size(); k++) { // Ingresa a cada uno de los ingredientes de cada receta
+
+                        if (ingredientes.get(j) == recetaBd.get(i).getIngredientes().get(k)) { //Compara ingrediente ingresado 1 con cada uno de los ingredientes de la receta de arriba si es igual cuenta
+                            contadorIngredientesEncontrados++;
+                        }
+                    } //Cierra for ingredientes de Recetas
+                    if (contadorIngredientesEncontrados >= 3) { //si hay 3 o mas ingredientes guarda en la lista a devolver
+                        recetasMas3.add(recetaBd.get(i));
+                    }
+                } //Cierra for ingredientes ingresados por parametro
+            } //Cierra for receta "Investigar streams"
+        } while (contadorRecetas < recetaBd.size());//poner un contador y que de vuelta hasta el tamaño de recetas
+        return recetasMas3;
+    }
+
+    @Transactional
+    public List<Receta> listarRecetasPorIngredientesMenos3(List<Ingrediente> ingredientes) {
+        List<Receta> recetaBd = recetaRepositorio.findAll();
+        int contadorRecetas = 0;
+        int contadorIngredientesEncontrados = 0;
+        List<Receta> recetasMenos3 = new ArrayList<Receta>();
+        do {
+            for (int i = 0; i < recetaBd.size(); i++) { // Ingresa con cada una de las recetas de la base de datos
+                contadorRecetas++;
+                contadorIngredientesEncontrados = 0;
+                for (int j = 0; j < ingredientes.size(); j++) { // Ingresa a iterar cada una de los ingredietes ingresados en la pagina
+
+                    for (int k = 0; k < recetaBd.get(i).getIngredientes().size(); k++) { // Ingresa a cada uno de los ingredientes de cada receta
+
+                        if (ingredientes.get(j) == recetaBd.get(i).getIngredientes().get(k)) { //Compara ingrediente ingresado 1 con cada uno de los ingredientes de la receta de arriba si es igual cuenta
+                            contadorIngredientesEncontrados++;
+                        }
+                    } //Cierra for ingredientes de Recetas
+                    if (contadorIngredientesEncontrados < 3) { //si hay menos de e ingredientes guarda en la lista a devolver
+                        recetasMenos3.add(recetaBd.get(i));
+                    }
+                } //Cierra for ingredientes ingresados por parametro
+            } //Cierra for receta "Investigar streams"
+        } while (contadorRecetas < recetaBd.size());//poner un contador y que de vuelta hasta el tamaño de recetas
+        return recetasMenos3;
+    }
 
     @Transactional
     public Receta buscarReceta(String id) throws Exception {
@@ -62,7 +116,7 @@ public class RecetaServicio {
         if (resp.isPresent()) {
             return resp.get();
         } else {
-            throw new Exception("El Libro no se encuentra");
+            throw new Exception("la receta no se encuentra");
         }
     }
 

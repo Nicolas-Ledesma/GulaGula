@@ -31,6 +31,7 @@ public class Plato {
         this.imagen = imagen;
     }
 
+<<<<<<< HEAD
     //public Estado getEstado() {
         //return estado;
     //}
@@ -38,6 +39,12 @@ public class Plato {
 //    public void setEstado(Estado estado) {
 //        this.estado = estado;
 //    }
+=======
+    @OneToOne
+    private Receta receta;
+    @OneToOne
+    private Imagen imagen;
+>>>>>>> e6e991c86aafbe2012ae34ff4431bca3c07a69a5
 
     public String getId() {
         return id;
