@@ -1,10 +1,8 @@
-
 package com.gulagula.gulagula.servicios;
-
-
 
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.repositorios.IngredienteRepositorio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -54,30 +52,27 @@ public class IngredienteServicio {
     }
 
     @Transactional
+    public List buscarPorNombre(String nombre) throws Exception {
+
+        List<Ingrediente> ing = ingredienteRepositorio.findAll();
+        if (ing.contains(Ingrediente.class.cast(nombre))) {
+            ing = new ArrayList();
+            return ing;
+        } else {
+            throw new Exception("El Ingrediente no se encuentra");
+        }
+    }
+
+    @Transactional
     public void validacion(Ingrediente ingrediente) throws Exception {
 
-        if (ingrediente == null ) {
+        if (ingrediente == null) {
             throw new Exception("los ingredientes no pueden estar vacios");
         }
-//        if (ingrediente.getTemperatura() == null) {
-//            throw new Exception("La temperatura del ingrediente no puede estar vacia");
-//        }
-//        if (ingrediente.getSabor() == null) {
-//            throw new Exception("El sabor del ingrediente no puede estar vacio");
-//        }
+//   
         if (ingrediente.getNombre() == null || ingrediente.getNombre().isEmpty()) {
             throw new Exception("El nombre del ingrediente no puede estar vacio");
         }
-        if (ingrediente.getCategoria() == null) {
-            throw new Exception("La categoria del ingrediente no puede estar vacia");
-        }
-//        if (ingrediente.getTipo() == null) {
-//            throw new Exception("El tipo de la ingrediente no puede estar vacia");
-//        }
-//        if (ingrediente.() == null || ingrediente.getTiempoDeCoccion().isEmpty()) {
-//            throw new Exception("El tiempo de cocción de la ingrediente no puede estar vacia");
-//        }
+
     }
 }
-
-

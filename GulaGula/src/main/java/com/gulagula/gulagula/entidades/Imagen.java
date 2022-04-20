@@ -22,4 +22,14 @@ public class Imagen {
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
 
+    public Imagen() {
+    }
+
+    public Imagen(String id, String nombre, String mime, byte[] contenido) {
+        this.id = id;
+        this.nombre = nombre;
+        this.mime = mime;
+        this.contenido = contenido;
+    }
+
 }
