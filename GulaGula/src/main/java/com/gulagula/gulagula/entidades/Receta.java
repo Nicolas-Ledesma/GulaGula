@@ -129,6 +129,7 @@ public class Receta {
         this.tiempoDeCoccion = tiempoDeCoccion;
     }
 
+
     @Override
     public String toString() {
         return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + '}';
