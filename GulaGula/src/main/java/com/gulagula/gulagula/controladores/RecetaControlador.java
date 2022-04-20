@@ -1,5 +1,6 @@
 package com.gulagula.gulagula.controladores;
 
+import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.entidades.Receta;
 import com.gulagula.gulagula.servicios.RecetaServicio;
 import java.util.List;
@@ -35,8 +36,10 @@ public class RecetaControlador {
     }
 
     @PostMapping("/form")
-    public String procesarFormulario(@ModelAttribute Receta receta,ModelMap model) {
+    public String procesarFormulario(@ModelAttribute Receta receta, ModelMap model, @RequestParam(required = false) List<Ingrediente> ingredientesId) {
         try {
+            System.out.println(receta.toString());
+            receta.getIngredientes().forEach(ingrediente -> System.out.println("ing:" + ingrediente.toString()));
             recetaServicio.guardarReceta(receta);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -45,6 +48,7 @@ public class RecetaControlador {
         }
         return "redirect:/receta";
     }
+
     
     @GetMapping("/editar")
     public String modificar(@RequestParam(value = "id") String id, ModelMap model) {
@@ -57,7 +61,7 @@ public class RecetaControlador {
         return "receta/editar-receta";
     }
     
-    @PostMapping("/modificar/{id}")
+    @PostMapping("/editar")
     public String modificarFormulario(@ModelAttribute Receta receta, ModelMap model) {
         try {
             recetaServicio.editarReceta(receta);
