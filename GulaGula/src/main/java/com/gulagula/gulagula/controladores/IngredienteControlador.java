@@ -1,0 +1,69 @@
+
+package com.gulagula.gulagula.controladores;
+
+import com.gulagula.gulagula.entidades.Ingrediente;
+import com.gulagula.gulagula.servicios.IngredienteServicio;
+import java.util.List;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+public class IngredienteControlador {
+     
+    private final IngredienteServicio ingredienteServicio;
+
+    public IngredienteControlador(IngredienteServicio ingredienteServicio) {
+        this.ingredienteServicio = ingredienteServicio;
+    }
+    
+     @GetMapping
+    public String listarIngrediente(ModelMap model) {
+        List<Ingrediente> ingrediente = ingredienteServicio.listarIngredientes();
+        model.addAttribute("ingrediente", ingrediente);
+        return "ingrediente/lista-ingrediente";
+    }
+
+    @GetMapping("/form")
+    public String mostrarFormulario(ModelMap model) {
+        model.addAttribute("ingrediente", new Ingrediente());
+        return "ingrediente/ingrediente-form";
+    }
+
+    @PostMapping("/form")
+    public String procesarFormulario(@ModelAttribute Ingrediente ingrediente,ModelMap model) {
+        try {
+            ingredienteServicio.guardarIngrediente(ingrediente);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            System.out.println(e.getMessage());
+            return "ingrediente/ingrediente-form";
+        }
+        return "redirect:/ingrediente";
+    }
+    
+    @GetMapping("/editar")
+    public String modificar(@RequestParam(value = "id") String id, ModelMap model) {
+        try {
+            model.put("ingrediente", ingredienteServicio.buscarIngrediente(id));
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "ingrediente/editar-ingrediente";
+        }
+        return "ingrediente/editar-ingrediente";
+    }
+    
+    @PostMapping("/modificar/{id}")
+    public String modificarFormulario(@ModelAttribute Ingrediente ingrediente, ModelMap model) {
+        try {
+            ingredienteServicio.editarIngrediente(ingrediente);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            System.out.println(e.getMessage());
+            return "ingrediente/editar-ingrediente";
+        }
+        return "redirect:/ingrediente";
+    }
+}
