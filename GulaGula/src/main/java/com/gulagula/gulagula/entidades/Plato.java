@@ -31,21 +31,6 @@ public class Plato {
         this.imagen = imagen;
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> aef7f7533f74311ec0ba9981f981ef89e7ea172a
-    //public Estado getEstado() {
-    //return estado;
-    //}
-//    public void setEstado(Estado estado) {
-//        this.estado = estado;
-//    }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> aef7f7533f74311ec0ba9981f981ef89e7ea172a
     public String getId() {
         return id;
     }
