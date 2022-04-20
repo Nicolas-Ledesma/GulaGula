@@ -1,5 +1,6 @@
 package com.gulagula.gulagula.entidades;
 
+import com.gulagula.gulagula.enumeradores.Estado;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,10 +15,11 @@ public class Plato {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
-    private Enum sabor;
-    private Enum temperatura;
-    private Enum tipo;
-    private Enum categoria;
+//    private Estado estado;
+    @OneToOne
+    private Receta receta;
+    @OneToOne
+    private Imagen imagen;
 
     public Plato() {
     }
@@ -29,9 +31,13 @@ public class Plato {
         this.imagen = imagen;
     }
 
-    @OneToOne
-    private Receta receta;
-    private Imagen imagen;
+    //public Estado getEstado() {
+        //return estado;
+    //}
+
+//    public void setEstado(Estado estado) {
+//        this.estado = estado;
+//    }
 
     public String getId() {
         return id;
@@ -47,38 +53,6 @@ public class Plato {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Enum getSabor() {
-        return sabor;
-    }
-
-    public void setSabor(Enum sabor) {
-        this.sabor = sabor;
-    }
-
-    public Enum getTemperatura() {
-        return temperatura;
-    }
-
-    public void setTemperatura(Enum temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    public Enum getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Enum tipo) {
-        this.tipo = tipo;
-    }
-
-    public Enum getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Enum categoria) {
-        this.categoria = categoria;
     }
 
     public Receta getReceta() {
@@ -97,5 +71,12 @@ public class Plato {
         this.imagen = imagen;
     }
 
-  
+      
+    @Override
+    public String toString() {
+        return "Plato{" + "id=" + id + ", nombre=" + nombre +  ", receta=" + receta + ", imagen=" + imagen + '}';
+    }
+
+
+
 }

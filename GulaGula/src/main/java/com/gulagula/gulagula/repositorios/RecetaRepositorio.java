@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecetaRepositorio extends JpaRepository<Receta, String>{
     //    @Query("SELECT p FROM libro p WHERE p.nombre LIKE :nombre")
-//    public List<Libro> BuscarLibroPorId(@Param("id") String id);
+//    public List<Plato> BuscarPlatoPorId(@Param("id") String id);
 }
