@@ -1,8 +1,10 @@
 package com.gulagula.gulagula.entidades;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -13,13 +15,16 @@ public class Ingrediente {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
-   
+    @ManyToMany(mappedBy = "ingredientes")
+    private List<Receta> recetas;
+
     public Ingrediente() {
     }
 
     public Ingrediente(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+
     }
 
     /**
