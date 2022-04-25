@@ -21,7 +21,7 @@ public class IngredienteServicio {
 
     @Transactional
     public Ingrediente guardarIngrediente(Ingrediente ingrediente) throws Exception {
-        buscarIngrediente(ingrediente.getId());
+//        buscarIngrediente(ingrediente.getId());
         validacion(ingrediente);
         ingredienteRepositorio.save(ingrediente);
         return ingrediente;
