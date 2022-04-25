@@ -1,25 +1,28 @@
-
 package com.gulagula.gulagula.controladores;
 
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.servicios.IngredienteServicio;
 import java.util.List;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Controller
+@RequestMapping("/ingrediente")
 
 public class IngredienteControlador {
-     
+
     private final IngredienteServicio ingredienteServicio;
 
     public IngredienteControlador(IngredienteServicio ingredienteServicio) {
         this.ingredienteServicio = ingredienteServicio;
     }
-    
-     @GetMapping
+
+    @GetMapping
     public String listarIngrediente(ModelMap model) {
         List<Ingrediente> ingrediente = ingredienteServicio.listarIngredientes();
         model.addAttribute("ingrediente", ingrediente);
@@ -33,7 +36,7 @@ public class IngredienteControlador {
     }
 
     @PostMapping("/form")
-    public String procesarFormulario(@ModelAttribute Ingrediente ingrediente,ModelMap model) {
+    public String procesarFormulario(@ModelAttribute Ingrediente ingrediente, ModelMap model) {
         try {
             ingredienteServicio.guardarIngrediente(ingrediente);
         } catch (Exception e) {
@@ -43,9 +46,9 @@ public class IngredienteControlador {
         }
         return "redirect:/ingrediente";
     }
-    
+
     @GetMapping("/editar")
-    public String modificar(@RequestParam(value = "id") String id, ModelMap model) {
+    public String modificar(@RequestParam String id, ModelMap model) {
         try {
             model.put("ingrediente", ingredienteServicio.buscarIngrediente(id));
         } catch (Exception e) {
@@ -54,8 +57,8 @@ public class IngredienteControlador {
         }
         return "ingrediente/editar-ingrediente";
     }
-    
-    @PostMapping("/modificar/{id}")
+
+    @PostMapping("/editar")
     public String modificarFormulario(@ModelAttribute Ingrediente ingrediente, ModelMap model) {
         try {
             ingredienteServicio.editarIngrediente(ingrediente);
