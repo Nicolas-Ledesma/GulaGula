@@ -35,9 +35,11 @@
                     <input type="text" th:field="*{email}" />
                 </label> </br>
                 <label> Clave:
-                    <input type="text" th:field="*{clave}" />
+                    <input type="password" th:field="*{clave}" />
                 </label> </br>
-            
+            <p th:if="${Error != null}" th:text="${Error}" style="color:red"></p>
+                <input type="submit" value='Guardar' class="btn btn-warning">
+                <a href="/usuario" class="btn btn-primary my-2">Volver</a>
             </form>
             <!--            <p sclass="text-danger" th:text="${error != null ? error : ''}" ></p>-->
         </div>

@@ -28,11 +28,10 @@ public class IngredienteServicio {
     }
 
     @Transactional
-    public Ingrediente editarIngrediente(Ingrediente ingrediente) throws Exception {
+    public void editarIngrediente(Ingrediente ingrediente) throws Exception {
         validacion(ingrediente);
-        ingredienteRepositorio.findById(ingrediente.getId());
+        buscarIngrediente(ingrediente.getId());
         ingredienteRepositorio.save(ingrediente);
-        return ingrediente;
     }
 
     @Transactional
@@ -75,4 +74,9 @@ public class IngredienteServicio {
         }
 
     }
+    @Transactional
+    public Ingrediente getOne(String id) {
+        return ingredienteRepositorio.getOne(id);
+    }
+    
 }

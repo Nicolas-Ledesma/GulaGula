@@ -27,7 +27,7 @@
         <h1>Editar ingrediente</h1>
         <div>
             <form th:action="@{/ingrediente/editar}" method='POST' th:object="${ingrediente}"  class="form-register">            
-                <input type="hidden" th:value="${ingrediente.id}"/>
+                <input type="hidden" th:value="${ingrediente.id}" th:field="*{id}"/>
                 <label> Nombre:
                     <input type="text" th:field="*{nombre}" />
                 </label> </br>

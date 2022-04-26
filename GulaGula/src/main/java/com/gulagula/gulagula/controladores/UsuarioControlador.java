@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuario")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+//@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public class UsuarioControlador {
 
     private final UsuarioServicio usuarioServicio;
@@ -26,7 +26,7 @@ public class UsuarioControlador {
         this.usuarioServicio = usuarioServicio;
     }
 
-    @GetMapping
+    @GetMapping()
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listaUs();
         model.addAttribute("usuarios", usuarios);

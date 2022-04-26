@@ -2,6 +2,7 @@ package com.gulagula.gulagula.controladores;
 
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.entidades.Receta;
+import com.gulagula.gulagula.servicios.IngredienteServicio;
 import com.gulagula.gulagula.servicios.RecetaServicio;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RecetaControlador {
     
     private final RecetaServicio recetaServicio;
+    private final IngredienteServicio ingredienteServicio;
 
-    public RecetaControlador(RecetaServicio recetaServicio) {
+    public RecetaControlador(RecetaServicio recetaServicio, IngredienteServicio ingredienteServicio) {
         this.recetaServicio = recetaServicio;
+        this.ingredienteServicio = ingredienteServicio;
     }
     
      @GetMapping
@@ -31,6 +34,8 @@ public class RecetaControlador {
 
     @GetMapping("/form")
     public String mostrarFormulario(ModelMap model) {
+        List<Ingrediente> ingredientes = ingredienteServicio.listarIngredientes();
+        model.addAttribute("ingredientes", ingredientes);
         model.addAttribute("receta", new Receta());
         return "receta/receta-form";
     }
