@@ -35,6 +35,7 @@
                 <th scope="col">Temperatura</th>
                 <th scope="col">Instrucciones</th>
                 <th scope="col">Ingredientes</th>
+                <th scope="col">Imagen</th>
             </tr>
         </thead>
         <tbody>
@@ -48,8 +49,10 @@
                 <td th:text="${receta.temp}"></td>
                 <td th:text="${receta.instrucciones}"></td>
                 <td th:text="${receta.ingredientes}"></td>
-                <td></td>
-
+                <td>    
+                    <img class="img-thumbnail rounded float-left" th:if="${receta.imagen != null}" th:src="${'/imagen/receta/' + receta.id}" alt="" width="100%">
+                    <img class="img-thumbnail rounded float-left" th:if="${receta.imagen == null}" src="/img/sinPortada.jpeg" alt="" width="100%">
+                </td>
                 <td>  <a th:href="@{/receta/editar(id=__${receta.id}__)}"<button type="button" class="btn btn-success btn-lg">Editar</button></a></td>
             </tr>    
         </tbody>
