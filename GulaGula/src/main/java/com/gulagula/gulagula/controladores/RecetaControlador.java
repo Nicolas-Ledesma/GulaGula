@@ -44,9 +44,6 @@ public class RecetaControlador {
     @PostMapping("/form")
     public String procesarFormulario(@ModelAttribute Receta receta, ModelMap model, @RequestParam(required = false) MultipartFile archivo, @RequestParam(required = false) List<Ingrediente> ingredientesId) {
         try {
-//            System.out.println(receta.toString());
-//            System.out.println(archivo.getBytes().length + "archivo");
-//            receta.getIngredientes().forEach(ingrediente -> System.out.println("ing:" + ingrediente.toString()));
             recetaServicio.guardarReceta(receta, archivo);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -55,17 +52,6 @@ public class RecetaControlador {
         }
         return "redirect:/receta";
     }
-    
-//    @GetMapping("/actualizar")
-//    public String editarLibro(ModelMap model, @RequestParam String id) {
-//        List<Autor> autores = autorService.listarAutores();
-//        model.addAttribute("autores", autores);
-//        List<Editorial> editoriales = editorialService.listarEditoriales();
-//        model.addAttribute("editoriales", editoriales);
-//        model.put("libro", libroService.getOne(id));
-//        return "libros/actualizar-libro";
-//    }
-
 
     @GetMapping("/editar")
     public String modificar(@RequestParam (value = "id") String id, ModelMap model) {

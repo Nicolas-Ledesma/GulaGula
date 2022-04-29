@@ -20,7 +20,7 @@ public class Usuario {
     private String email;
     private Boolean alta;
     
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private Rols role;
 
     public Usuario() {

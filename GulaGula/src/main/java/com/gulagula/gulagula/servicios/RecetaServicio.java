@@ -34,7 +34,6 @@ public class RecetaServicio {
     @Transactional
     public void guardarReceta(Receta receta, MultipartFile archivo) throws Exception {
         validacion(receta);
-//        System.out.println(archivo.getBytes().length + "archivo en servicio");
         Imagen imagen = imagenServicio.guardar(archivo);
         receta.setImagen(imagen);
 
@@ -44,7 +43,6 @@ public class RecetaServicio {
     @Transactional
     public Receta editarReceta(Receta receta, MultipartFile archivo) throws Exception {
         validacion(receta);
-        System.out.println("llega a metodo editar");
         Imagen imagen = imagenServicio.guardar(archivo);
         receta.setImagen(imagen);
         recetaRepositorio.save(receta);
