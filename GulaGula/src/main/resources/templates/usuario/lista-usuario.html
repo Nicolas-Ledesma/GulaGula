@@ -34,17 +34,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="usuario : ${usuario}">
+            <tr th:each="usuario : ${usuarios}">
                 <td th:text="${usuario.id}"></td>  
                 <td th:text="${usuario.nombre}"></td>
                 <td th:text="${usuario.email}"></td>
                 <td class="text-center">
-                    <a  th:if="${usuario.alta}" th:href="@{/usuarios/baja/__${usuario.id}__}" class="btn btn-success btn-lg">Alta</a>
-                    <a  th:unless="${usuario.alta}" th:href="@{/usuarios/alta/__${usuario.id}__}" class="btn btn-danger btn-lg">Baja</a>
+                    <a  th:if="${usuario.alta}" th:href="@{/usuario/baja/__${usuario.id}__}" class="btn btn-success btn-lg">Alta</a>
+                    <a  th:unless="${usuario.alta}" th:href="@{/usuario/alta/__${usuario.id}__}" class="btn btn-danger btn-lg">Baja</a>
                 </td>
                 <td></td>
 
-                <td>  <a th:href="@{/usuario/editar(id=__${editar.id}__)}"<button type="button" class="btn btn-success btn-lg">Editar</button></a></td>
+<!--                <td>  <a th:href="@{/usuario/editar(id=__${usuario.id}__)}"<button type="button" class="btn btn-success btn-lg">Editar</button></a></td>-->
             </tr>    
         </tbody>
     </table>
