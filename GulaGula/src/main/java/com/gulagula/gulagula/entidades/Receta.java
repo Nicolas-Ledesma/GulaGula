@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -41,11 +42,14 @@ public class Receta {
     private Categoria categoria;
     private Tipo tipo;
     private String tiempoDeCoccion;
+    
+    @OneToOne
+    private Imagen imagen;
 
     public Receta() {
     }
 
-    public Receta(String id, String instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion) {
+    public Receta(String id, String instrucciones, List<Ingrediente> ingredientes, Temperatura temp, Sabor sabor, String nombre, Categoria categoria, Tipo tipo, String tiempoDeCoccion, Imagen imagen) {
         this.id = id;
         this.instrucciones = instrucciones;
         this.ingredientes = ingredientes;
@@ -55,6 +59,7 @@ public class Receta {
         this.categoria = categoria;
         this.tipo = tipo;
         this.tiempoDeCoccion = tiempoDeCoccion;
+        this.imagen = imagen;
     }
 
     public String getId() {
@@ -129,10 +134,19 @@ public class Receta {
         this.tiempoDeCoccion = tiempoDeCoccion;
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
 
     @Override
     public String toString() {
-        return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + '}';
+        return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + ", imagen=" + imagen + '}';
     }
+
+   
 
 }

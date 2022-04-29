@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/receta")
@@ -24,8 +25,8 @@ public class RecetaControlador {
         this.recetaServicio = recetaServicio;
         this.ingredienteServicio = ingredienteServicio;
     }
-    
-     @GetMapping
+
+    @GetMapping
     public String listarReceta(ModelMap model) {
         List<Receta> receta = recetaServicio.listarRecetas();
         model.addAttribute("receta", receta);
@@ -41,11 +42,12 @@ public class RecetaControlador {
     }
 
     @PostMapping("/form")
-    public String procesarFormulario(@ModelAttribute Receta receta, ModelMap model, @RequestParam(required = false) List<Ingrediente> ingredientesId) {
+    public String procesarFormulario(@ModelAttribute Receta receta, ModelMap model, @RequestParam(required = false) MultipartFile archivo, @RequestParam(required = false) List<Ingrediente> ingredientesId) {
         try {
-            System.out.println(receta.toString());
-            receta.getIngredientes().forEach(ingrediente -> System.out.println("ing:" + ingrediente.toString()));
-            recetaServicio.guardarReceta(receta);
+//            System.out.println(receta.toString());
+//            System.out.println(archivo.getBytes().length + "archivo");
+//            receta.getIngredientes().forEach(ingrediente -> System.out.println("ing:" + ingrediente.toString()));
+            recetaServicio.guardarReceta(receta, archivo);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             System.out.println(e.getMessage());
@@ -53,23 +55,36 @@ public class RecetaControlador {
         }
         return "redirect:/receta";
     }
-
     
+//    @GetMapping("/actualizar")
+//    public String editarLibro(ModelMap model, @RequestParam String id) {
+//        List<Autor> autores = autorService.listarAutores();
+//        model.addAttribute("autores", autores);
+//        List<Editorial> editoriales = editorialService.listarEditoriales();
+//        model.addAttribute("editoriales", editoriales);
+//        model.put("libro", libroService.getOne(id));
+//        return "libros/actualizar-libro";
+//    }
+
+
     @GetMapping("/editar")
-    public String modificar(@RequestParam(value = "id") String id, ModelMap model) {
+    public String modificar(@RequestParam (value = "id") String id, ModelMap model) {
         try {
-            model.put("receta", recetaServicio.buscarReceta(id));
+            Receta receta = recetaServicio.buscarReceta(id);
+            List<Ingrediente> ingredientes = ingredienteServicio.listarIngredientes();
+            model.addAttribute("ingredientes", ingredientes);
+            model.put("receta", receta);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "receta/editar-receta";
         }
         return "receta/editar-receta";
     }
-    
+
     @PostMapping("/editar")
-    public String modificarFormulario(@ModelAttribute Receta receta, ModelMap model) {
+    public String modificarFormulario(@ModelAttribute Receta receta, @RequestParam(required = false) MultipartFile archivo, ModelMap model) {
         try {
-            recetaServicio.editarReceta(receta);
+            recetaServicio.editarReceta(receta, archivo);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             System.out.println(e.getMessage());

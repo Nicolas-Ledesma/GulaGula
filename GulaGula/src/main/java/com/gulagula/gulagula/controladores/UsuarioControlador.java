@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +34,8 @@ public class UsuarioControlador {
         return "usuario/lista-usuario";
     }
 
-    @GetMapping("/form")
-    public String mostrarFormulario(ModelMap model, String id, RedirectAttributes attr) {
+    @GetMapping("/registro")
+    public String mostrarFormulario(ModelMap model, @RequestParam(required = false) String id, RedirectAttributes attr) {
         if (id == null) {
             model.addAttribute("usuario", new Usuario());
             return "usuario/usuario-form";
@@ -50,7 +51,7 @@ public class UsuarioControlador {
         }
     }
 
-    @PostMapping("/form")
+    @PostMapping("/registro")
     public String procesarFormulario(@ModelAttribute Usuario usuario, ModelMap model) {
         try {
             usuarioServicio.guardarUsuario(usuario);
@@ -63,8 +64,8 @@ public class UsuarioControlador {
         return "redirect:/usuario";
     }
 
-    @GetMapping("/alta")
-    public String alta(@RequestParam(value = "id") String id, ModelMap model) {
+    @GetMapping("/alta/{id}")
+    public String alta(@PathVariable String id, ModelMap model) {
         try {
             usuarioServicio.activarUs(id);
         } catch (Exception e) {
@@ -74,8 +75,8 @@ public class UsuarioControlador {
         return "redirect:/usuario";
     }
 
-    @GetMapping("/baja")
-    public String baja(@RequestParam(value = "id") String id, ModelMap model) {
+    @GetMapping("/baja/{id}")
+    public String baja(@PathVariable String id, ModelMap model) {
         try {
             usuarioServicio.desactivarUs(id);
         } catch (Exception e) {

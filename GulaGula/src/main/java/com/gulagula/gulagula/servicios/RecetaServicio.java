@@ -1,20 +1,25 @@
 package com.gulagula.gulagula.servicios;
 
+import com.gulagula.gulagula.entidades.Imagen;
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.entidades.Receta;
 import com.gulagula.gulagula.repositorios.RecetaRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class RecetaServicio {
 
     private RecetaRepositorio recetaRepositorio;
     private IngredienteServicio ingredienteServicio;
+
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Autowired
     public RecetaServicio(IngredienteServicio ingredienteServicio) {
@@ -27,19 +32,21 @@ public class RecetaServicio {
     }
 
     @Transactional
-    public Receta guardarReceta(Receta receta) throws Exception {
-//        if (recetaRepositorio.existsById(receta.getId())) {
-//            throw new Exception("la receta ya se encuentra cargada");
-//        }
+    public void guardarReceta(Receta receta, MultipartFile archivo) throws Exception {
         validacion(receta);
+//        System.out.println(archivo.getBytes().length + "archivo en servicio");
+        Imagen imagen = imagenServicio.guardar(archivo);
+        receta.setImagen(imagen);
+
         recetaRepositorio.save(receta);
-        return receta;
     }
 
     @Transactional
-    public Receta editarReceta(Receta receta) throws Exception {
+    public Receta editarReceta(Receta receta, MultipartFile archivo) throws Exception {
         validacion(receta);
-        buscarReceta(receta.getId());
+        System.out.println("llega a metodo editar");
+        Imagen imagen = imagenServicio.guardar(archivo);
+        receta.setImagen(imagen);
         recetaRepositorio.save(receta);
         return receta;
     }
@@ -51,7 +58,9 @@ public class RecetaServicio {
 
     /**
      * Este metodo recibe una lista de ingredientes, busca las recetas que
-     * contengan esos ingredientes y devuelve una lista de recetas.-     *
+     * contengan esos ingredientes y devuelve una lista de recetas.-
+     *
+     *
      * @param ingredientes
      * @return
      */
