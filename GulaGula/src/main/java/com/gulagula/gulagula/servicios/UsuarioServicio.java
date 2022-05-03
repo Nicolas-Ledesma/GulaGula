@@ -73,10 +73,10 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-            if (usuario.getRole().equals(Rols.USER)) {
-                usuario.setRole(Rols.ADMIN);
-            } else if (usuario.getRole().equals(Rols.ADMIN)) {
-                usuario.setRole(Rols.USER);
+            if (usuario.getRol().equals(Rols.USER)) {
+                usuario.setRol(Rols.ADMIN);
+            } else if (usuario.getRol().equals(Rols.ADMIN)) {
+                usuario.setRol(Rols.USER);
             }
         }
     }
@@ -98,7 +98,7 @@ public class UsuarioServicio implements UserDetailsService {
     private void activateIfNew(Usuario usuario) {
         if (usuario.getAlta() == null) {
             usuario.setAlta(true);
-            usuario.setRole(Rols.USER);
+            usuario.setRol(Rols.USER);
         }
     }
 
@@ -109,7 +109,7 @@ public class UsuarioServicio implements UserDetailsService {
             throw new UnsupportedOperationException("Usuario no registrado");
         }
         List<GrantedAuthority> permisos = new ArrayList<>();
-        GrantedAuthority permisosRol = new SimpleGrantedAuthority("rols_" + usuario.getRole().toString());
+        GrantedAuthority permisosRol = new SimpleGrantedAuthority("rols_" + usuario.getRol().toString());
         permisos.add(permisosRol);
         return new User(usuario.getEmail(), usuario.getClave(), permisos);
     }
