@@ -34,12 +34,12 @@ public class UsuarioControlador {
         return "usuario/lista-usuario";
     }
 
-     @GetMapping("/registro")
-    public String mostrarFormulario(ModelMap model,@RequestParam(required = false) String id, RedirectAttributes attr) {
+    @GetMapping("/registro")
+    public String mostrarFormulario(ModelMap model, @RequestParam(required = false) String id, RedirectAttributes attr) {
         if (id == null) {
             model.addAttribute("usuario", new Usuario());
             return "usuario/usuario-form";
-        } else {  
+        } else {
             try {
                 Usuario usuario = usuarioServicio.buscarUsId(id);
                 model.addAttribute("usuario", usuario);

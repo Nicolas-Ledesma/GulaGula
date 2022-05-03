@@ -19,9 +19,9 @@ public class Usuario {
     private String clave;
     private String email;
     private Boolean alta;
-    
-//    @Enumerated(EnumType.STRING)
-    private Rols role;
+
+    @Enumerated(EnumType.STRING)
+    private Rols rol;
 
     public Usuario() {
     }
@@ -32,7 +32,7 @@ public class Usuario {
         this.clave = clave;
         this.email = email;
         this.alta = alta;
-        this.role = role;
+        this.rol = rol;
     }
 
     public String getId() {
@@ -75,18 +75,17 @@ public class Usuario {
         this.alta = alta;
     }
 
-    public Rols getRole() {
-        return role;
+    public Rols getRol() {
+        return rol;
     }
 
-    public void setRole(Rols role) {
-        this.role = role;
+    public void setRol(Rols rol) {
+        this.rol = rol;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", email=" + email + ", alta=" + alta + ", role=" + role + '}';
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", email=" + email + ", alta=" + alta + ", rol=" + rol + '}';
     }
 
-    
 }

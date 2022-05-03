@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class LoginControlador {
-    
+public class MainControlador {
+
     @GetMapping
-    public String home(){
+    public String home() {
         return "/index";
     }
-    
+
     @GetMapping("/login")
-    public String formLogin(@RequestParam(required = false) String error, ModelMap model){
+    public String formLogin(@RequestParam(required = false) String error, ModelMap model) {
         if (error != null) {
             model.put("error", "Usuario o Clave incorrecta");
         }
         return ("/login");
     }
-     
+
     @GetMapping("/registro")
-    public String formRegistro (ModelMap model){
+    public String formRegistro(ModelMap model) {
         model.addAttribute("usuario", new Usuario());
         return ("/usuario/usuario-form");
     }
-    
+
 }
