@@ -31,15 +31,15 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/procesarLogin")
+                .loginProcessingUrl("/logincheck")
                 .usernameParameter("email")
-                .passwordParameter("clave")
-                .defaultSuccessUrl("/index") //Cuando ingresa con el login es la pag que devuelve
+                .passwordParameter("password")
+                .defaultSuccessUrl("/") //Cuando ingresa con el login es la pag que devuelve
                 .failureUrl("/login?error=error").permitAll()
                 .and()
                 .logout()
-                .logoutUrl("logout")
-                .logoutSuccessUrl("/login").permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/").permitAll()
                 .and().csrf().disable();
 
     }
