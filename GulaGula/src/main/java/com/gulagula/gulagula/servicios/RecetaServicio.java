@@ -82,6 +82,7 @@ public class RecetaServicio {
                     } //Cierra for ingredientes de Recetas
                     if (contadorIngredientesEncontrados >= 3) { //si hay 3 o mas ingredientes guarda en la lista a devolver
                         recetasMas3.add(recetaBd.get(i));
+                        break;
                     }
                 } //Cierra for ingredientes ingresados por parametro
             } //Cierra for receta "Investigar streams"
@@ -107,8 +108,9 @@ public class RecetaServicio {
                             contadorIngredientesEncontrados++;
                         }
                     } //Cierra for ingredientes de Recetas
-                    if (contadorIngredientesEncontrados < 3) { //si hay menos de e ingredientes guarda en la lista a devolver
+                    if (contadorIngredientesEncontrados > 0 && contadorIngredientesEncontrados < 3) { //si hay menos de e ingredientes guarda en la lista a devolver
                         recetasMenos3.add(recetaBd.get(i));
+                        break;
                     }
                 } //Cierra for ingredientes ingresados por parametro
             } //Cierra for receta "Investigar streams"

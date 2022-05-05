@@ -18,6 +18,8 @@
                 <!--                        <input type="search" class="form-control form-control-dark" placeholder="Ingresa tus ingredientes..."
                                                aria-label="Search">-->
                 <form th:action="@{/buscar}" method='POST' class="form-register">
+<!--                    <input type="text" name="ingrediente"</input>
+                    <a th:href="@{/buscar}">Agregar</a>-->
                     <select  multiple class="form-select"  name="ingredientesId">
                         <option th:each="ingrediente: ${ingredientes}" th:text="${ingrediente.nombre}"
                                 th:value="${{ingrediente}}"

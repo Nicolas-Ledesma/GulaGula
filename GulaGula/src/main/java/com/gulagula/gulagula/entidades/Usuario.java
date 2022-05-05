@@ -1,6 +1,7 @@
 package com.gulagula.gulagula.entidades;
 
 import com.gulagula.gulagula.enumeradores.Rols;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,6 +18,7 @@ public class Usuario {
     private String id;
     private String nombre;
     private String clave;
+    @Column(unique = true)
     private String email;
     private Boolean alta;
 

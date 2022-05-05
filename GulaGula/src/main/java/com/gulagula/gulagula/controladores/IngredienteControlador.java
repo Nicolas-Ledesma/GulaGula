@@ -3,6 +3,7 @@ package com.gulagula.gulagula.controladores;
 import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.servicios.IngredienteServicio;
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class IngredienteControlador {
         this.ingredienteServicio = ingredienteServicio;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping
     public String listarIngrediente(ModelMap model) {
         List<Ingrediente> ingrediente = ingredienteServicio.listarIngredientes();

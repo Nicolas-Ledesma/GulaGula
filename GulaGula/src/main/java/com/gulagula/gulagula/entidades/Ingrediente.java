@@ -27,6 +27,10 @@ public class Ingrediente {
 
     }
 
+    public Ingrediente(String nombre) {
+        this.nombre = nombre;
+    }
+
     /**
      * @return the id
      */
@@ -59,6 +63,5 @@ public class Ingrediente {
     public String toString() {
         return nombre;
     }
-    
 
 }
