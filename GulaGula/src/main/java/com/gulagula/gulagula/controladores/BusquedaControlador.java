@@ -4,7 +4,6 @@ import com.gulagula.gulagula.entidades.Ingrediente;
 import com.gulagula.gulagula.entidades.Receta;
 import com.gulagula.gulagula.servicios.IngredienteServicio;
 import com.gulagula.gulagula.servicios.RecetaServicio;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,24 +26,10 @@ public class BusquedaControlador {
 
     @GetMapping
     public String mostrarIngredientes(ModelMap model) {
-        List<Ingrediente> ingredientes = ingredienteServicio.listarIngredientes();
+        List<Ingrediente> ingredientes = ingredienteServicio.ingredientesOrdenados();
         model.addAttribute("ingredientes", ingredientes);
         return "/receta/buscar-receta";
     }
-
-//    @GetMapping
-//    public String mostrarIngredientes(ModelMap model, @RequestParam(required = false) List<Ingrediente> ingredientes,
-//             @RequestParam(required = false) String ingrediente) {
-//        
-//        if(ingredientes == null ){
-//            ingredientes = new ArrayList<>();
-//        }else{
-//            ingredientes.add(new Ingrediente(ingrediente));
-//        }
-//        
-//        model.addAttribute("ingredientes", ingredientes);
-//        return "/receta/buscar-receta";
-//    }
 
     @PostMapping
     public String procesarIngredientes(ModelMap model, @RequestParam(required = false) List<Ingrediente> ingredientesId) {

@@ -26,7 +26,7 @@ public class IngredienteControlador {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping
     public String listarIngrediente(ModelMap model) {
-        List<Ingrediente> ingrediente = ingredienteServicio.listarIngredientes();
+        List<Ingrediente> ingrediente = ingredienteServicio.ingredientesOrdenados();
         model.addAttribute("ingrediente", ingrediente);
         return "ingrediente/lista-ingrediente";
     }

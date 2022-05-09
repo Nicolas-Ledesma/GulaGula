@@ -39,11 +39,6 @@ public class MainControlador {
         return ("/login");
     }
 
-//    @GetMapping("/registro")
-//    public String formRegistro(ModelMap model) {
-//        model.addAttribute("usuario", new Usuario());
-//        return ("/usuario/usuario-form");
-//    }
     @GetMapping("/registro")
     public String mostrarFormulario(ModelMap model, @RequestParam(required = false) String id, RedirectAttributes attr) {
         if (id == null) {

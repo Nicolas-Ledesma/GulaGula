@@ -26,23 +26,25 @@ public class Receta {
     private String instrucciones;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+        CascadeType.PERSIST,
+        CascadeType.MERGE
     })
     @JoinTable(
             name = "receta_ingrediente",
-            joinColumns = {@JoinColumn(name = "receta_id")},
-            inverseJoinColumns = {@JoinColumn(name = "ingrediente_id")}
+            joinColumns = {
+                @JoinColumn(name = "receta_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ingrediente_id")}
     )
     private List<Ingrediente> ingredientes;
-    
+
     private Temperatura temp;
     private Sabor sabor;
     private String nombre;
     private Categoria categoria;
     private Tipo tipo;
     private String tiempoDeCoccion;
-    
+
     @OneToOne
     private Imagen imagen;
 
@@ -146,7 +148,5 @@ public class Receta {
     public String toString() {
         return "Receta{" + "id=" + id + ", instrucciones=" + instrucciones + ", ingredientes=" + ingredientes + ", temp=" + temp + ", sabor=" + sabor + ", nombre=" + nombre + ", categoria=" + categoria + ", tipo=" + tipo + ", tiempoDeCoccion=" + tiempoDeCoccion + ", imagen=" + imagen + '}';
     }
-
-   
 
 }

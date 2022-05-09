@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/receta")
 public class RecetaControlador {
-    
+
     private final RecetaServicio recetaServicio;
     private final IngredienteServicio ingredienteServicio;
 
@@ -35,7 +35,7 @@ public class RecetaControlador {
 
     @GetMapping("/form")
     public String mostrarFormulario(ModelMap model) {
-        List<Ingrediente> ingredientes = ingredienteServicio.listarIngredientes();
+        List<Ingrediente> ingredientes = ingredienteServicio.ingredientesOrdenados();
         model.addAttribute("ingredientes", ingredientes);
         model.addAttribute("receta", new Receta());
         return "receta/receta-form";
@@ -54,10 +54,10 @@ public class RecetaControlador {
     }
 
     @GetMapping("/editar")
-    public String modificar(@RequestParam (value = "id") String id, ModelMap model) {
+    public String modificar(@RequestParam(value = "id") String id, ModelMap model) {
         try {
             Receta receta = recetaServicio.buscarReceta(id);
-            List<Ingrediente> ingredientes = ingredienteServicio.listarIngredientes();
+            List<Ingrediente> ingredientes = ingredienteServicio.ingredientesOrdenados();
             model.addAttribute("ingredientes", ingredientes);
             model.put("receta", receta);
         } catch (Exception e) {
@@ -78,4 +78,5 @@ public class RecetaControlador {
         }
         return "redirect:/receta";
     }
+
 }
