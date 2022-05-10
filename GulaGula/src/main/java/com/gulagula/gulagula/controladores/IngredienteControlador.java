@@ -46,7 +46,7 @@ public class IngredienteControlador {
             System.out.println(e.getMessage());
             return "ingrediente/ingrediente-form";
         }
-        return "redirect:/ingrediente";
+        return "redirect:/ingrediente/form";
     }
 
     @GetMapping("/editar")
