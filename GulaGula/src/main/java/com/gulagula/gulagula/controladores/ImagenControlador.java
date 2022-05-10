@@ -38,6 +38,7 @@ public class ImagenControlador {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
+            headers.setContentType(MediaType.IMAGE_PNG);
 
             return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
         } catch (Exception ex) {
